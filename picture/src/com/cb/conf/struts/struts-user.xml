@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="user" namespace="/user" extends="common">
+		<action name="userAction" class="userAction" method="findByPage">
+			<interceptor-ref name="commonstack">
+				<param name="fileUpload.allowedExtensions">.jpg,.png</param>
+			</interceptor-ref>
+			<result name="register" type="dispatcher">/pifriend/main/index.jsp</result>
+			<result name="registerInput" type="dispatcher">/pifriend/login/register.jsp</result>
+			<result name="findByPage" type="dispatcher">/pifriend/user/userList.jsp</result>
+			<result name="update" type="dispatcher">/pifriend/user/userDetail.jsp</result>
+			<result name="lockUser" type="redirectAction">
+				<param name="nameSpace">/user</param>
+				<param name="actionName">userAction</param>
+				<param name="method">findByPage</param>
+			</result>
+			<result name="unLockUser" type="redirectAction">
+				<param name="nameSpace">/user</param>
+				<param name="actionName">userAction</param>
+				<param name="method">findByPage</param>
+			</result>
+			<result name="updateImage" type="chain">
+				<param name="nameSpace">/user</param>
+				<param name="actionName">userAction</param>
+				<param name="method">findById</param>
+			</result>
+			<result name="updateInfor" type="chain">
+				<param name="nameSpace">/user</param>
+				<param name="actionName">userAction</param>
+				<param name="method">findById</param>
+			</result>
+			<result name="updatePassword" type="dispatcher">
+				/pifriend/user/userPassword.jsp
+			</result>
+			<result name="updatePasswordInput" type="dispatcher">
+				/pifriend/user/userPassword.jsp
+			</result>
+			<result name="query" type="dispatcher">/pifriend/user/userDetailQuery.jsp</result>
+		</action>
+	</package>
+</struts>

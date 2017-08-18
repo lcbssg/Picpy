@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.cb.model.comment.ProductComment" table="PRODUCT_COMMENT">
+        <id name="commentId" type="int" column="COMMENT_ID">
+            <generator class="identity">
+			</generator>
+        </id>
+        <property name="commentContent" type="string" column="COMMENT_CONTENT">
+        </property>
+        <property name="commentTime" type="timestamp" column="COMMENT_TIME">
+        </property>
+        
+         <!-- 与用户关联 -->
+        <many-to-one name="sysUser" class="com.cb.model.user.SysUser"  column="USER_ID">
+        </many-to-one>
+        <!-- 与作品关联 -->
+        <many-to-one name="product" class="com.cb.model.product.Product" column="PRODUCT_ID">
+        </many-to-one>
+       
+         <!-- 与作品评论表关联 使用级联删除-->
+        <set name="commentReplies" table="COMMENT_REPLY" inverse="true" order-by="id desc" fetch="select" cascade="delete">
+            <key>
+                <column name="COMMENT_ID" >
+                </column>
+            </key>
+            <one-to-many class="com.cb.model.reply.CommentReply" />
+        </set>
+    </class>
+</hibernate-mapping>

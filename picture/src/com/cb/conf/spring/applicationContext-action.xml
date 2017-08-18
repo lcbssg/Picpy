@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<!-- 登录模块开始 -->
+	<bean id = "loginAction" class = "com.cb.action.login.LoginAction" scope="prototype">
+		<property name="loginService" ref="loginService"></property>
+		<property name="productSortService" ref="productSortService"></property>
+	</bean>
+	<!-- 登录模块结束 -->
+	<!-- 职位模块开始 -->
+	<bean id = "jobAction" class = "com.cb.action.job.JobAction" scope="prototype">
+		<property name="jobService" ref="jobService"></property>
+	</bean>
+	<!-- 职位模块结束 -->
+	<!-- 用户模块开始 -->
+	<bean id = "userAction" class = "com.cb.action.user.UserAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+		<property name="jobService" ref="jobService"></property>
+		<property name="productSortService" ref="productSortService"></property>
+		<property name="loginService" ref="loginService"></property>
+	</bean>
+	<!-- 用户模块结束 -->
+	<!-- 主页模块开始 -->
+	<bean id = "mainAction" class = "com.cb.action.main.MainAction" scope="prototype">
+		<property name="mainService" ref="mainService"></property>
+		<property name="productSortService" ref="productSortService"></property>
+	</bean>
+	<!-- 主页模块结束 -->
+	<!-- 作品模块开始 -->
+	<bean id = "productAction" class = "com.cb.action.product.ProductAction" scope="prototype">
+		<property name="productService" ref="productService"></property>
+	</bean>
+	<!-- 评论模块开始 -->
+	<bean id = "commentAction" class = "com.cb.action.comment.CommentAction" scope="prototype">
+		<property name="commentService" ref="commentService"></property>
+		<property name="productService" ref="productService"></property>
+	</bean>
+	<!-- 评论模块结束 -->
+	<!-- 回复模块开始 -->
+	<bean id = "replyAction" class = "com.cb.action.reply.ReplyAction" scope="prototype">
+		<property name="replyService" ref="replyService"></property>
+		<property name="commentService" ref="commentService"></property>
+	</bean>
+	<!-- 回复模块结束 -->
+</beans>

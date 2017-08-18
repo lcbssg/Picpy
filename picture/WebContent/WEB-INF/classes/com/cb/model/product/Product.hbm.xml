@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.cb.model.product.Product" table="PRODUCT">
+        <id name="productId" type="int" column="PRODUCT_ID">
+            <generator class="identity">
+            </generator>
+        </id>
+        <property name="productName" type="string" column="PRODUCT_NAME">
+        </property>
+        <property name="productDesc" type="string" column="PRODUCT_DESC">
+        </property>
+        <property name="createDate" type="date" column="CREATE_DATE">
+        </property>
+        <property name="uploadDate" type="timestamp" column="UPLOAD_DATE">
+        </property>
+        <property name="lastModify" type="timestamp" column="LAST_MODIFY">
+        </property>
+        <property name="imageUrl" type="string" column="IMAGE_URL">
+        </property>
+        
+        <!-- 与作品分类关联 -->
+        <many-to-one name="productSort"  class="com.cb.model.product.ProductSort"   column="PRODUCT_SORT">
+        </many-to-one>
+        
+        <!-- 与用户关联 -->
+        <many-to-one name="sysUser"  class="com.cb.model.user.SysUser" column="CREATE_USER" >
+        </many-to-one>
+        <!-- 与作品查询表关联 使用级联删除-->
+        <set name="productQuerys" table="PRODUCT_QUERY" inverse="true" fetch="select" cascade="all">
+            <key>
+                <column name="product_id" >
+                </column>
+            </key>
+            <one-to-many class="com.cb.model.product.ProductQuery" />
+        </set>
+        
+        <!-- 与作品评论表关联 使用级联删除-->
+        <set name="productComments" table="PRODUCT_COMMENT" inverse="true" fetch="select" cascade="all">
+            <key>
+                <column name="product_id" >
+                </column>
+            </key>
+            <one-to-many class="com.cb.model.comment.ProductComment" />
+        </set>
+    </class>
+</hibernate-mapping>

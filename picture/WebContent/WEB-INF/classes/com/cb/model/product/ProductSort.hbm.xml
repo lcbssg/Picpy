@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.cb.model.product.ProductSort" table="PRODUCT_SORT">
+        <id name="sortId" type="int" column="SORT_ID">
+            <generator class="identity">
+            </generator>
+        </id>
+        <property name="sortName" type="string" column="SORT_NAME">
+        </property>
+        <property name="sortDesc" type="string" column="SORT_DESC">
+        </property>
+        <set name="products" table="PRODUCT" inverse="true" fetch="select">
+            <key>
+                <column name="product_sort" >
+                </column>
+            </key>
+            <one-to-many class="com.cb.model.product.Product" />
+        </set>
+    </class>
+</hibernate-mapping>

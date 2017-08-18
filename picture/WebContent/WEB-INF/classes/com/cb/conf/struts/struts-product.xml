@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="product" namespace="/product" extends="common">
+		<action name="productAction" class="productAction" >
+			<interceptor-ref name="commonstack">
+				<param name="fileUpload.allowedExtensions">.jpg,.png</param>
+			</interceptor-ref>
+			<!-- 转发到作品修改页面 -->
+			<result name="findProductById" type="dispatcher">/pifriend/product/productUpdate.jsp</result>
+			<!-- 转发到作品详细信息页面 -->
+			<result name="findProductDetailById" type="dispatcher">/pifriend/product/productDetail.jsp</result>
+			<!-- 当前用户的作品页面 -->
+			<!-- 查询其他用户的作品页面 -->
+			<result name="findProductByUserAndPage" type="dispatcher">/pifriend/product/productByUser.jsp</result>
+			<!-- 转发到按分类查询作品页面 -->
+			<result name="findProductBySortAndPage" type="dispatcher">/pifriend/product/productBySort.jsp</result>
+			<result name="input" type="dispatcher">/pifriend/product/productCreate.jsp</result>
+			<result name="saveProduct" type="redirectAction">
+				<param name="nameSpace">/product</param>
+				<param name="actionName">productAction?sysUser.userId=${sysUser.userId}</param>
+				<param name="method">findProductByUserAndPage</param>
+			</result>
+			<result name="updateProduct" type="redirectAction">
+				<param name="nameSpace">/product</param>
+				<param name="actionName">productAction?sysUser.userId=${sysUser.userId}</param>
+				<param name="method">findProductByUserAndPage</param>
+			</result>
+			<result name="deleteProduct" type="redirectAction">
+				<param name="nameSpace">/product</param>
+				<param name="actionName">productAction?sysUser.userId=${sysUser.userId}</param>
+				<param name="method">findProductByUserAndPage</param>
+			</result>
+		</action>
+	</package>
+</struts>

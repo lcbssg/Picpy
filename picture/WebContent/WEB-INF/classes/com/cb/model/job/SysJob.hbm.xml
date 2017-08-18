@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.cb.model.job.SysJob" table="SYS_JOB" lazy="true">
+		<id name="jobId" column="JOB_ID">
+			<generator class="identity">
+			</generator>
+		</id>
+		<property name="jobDesc" column="JOB_DESC" type="string"></property>
+		<property name="jobName" column="JOB_NAME" type="string"></property>
+		<property name="lastModify" column="last_modify" type="timestamp"></property>
+		<set name="sysUsers" table="SYS_USER" >
+			<key>
+				<column name="JOB_ID"></column>
+			</key>
+			<one-to-many class="com.cb.model.user.SysUser"/>
+		</set>
+	</class>
+</hibernate-mapping>

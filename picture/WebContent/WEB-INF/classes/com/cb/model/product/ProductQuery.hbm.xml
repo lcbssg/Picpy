@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+<!--private int productQueryId;
+	private SysUser sysUser;
+	private Timestamp queryTime;
+	private Product product; -->
+    <class name="com.cb.model.product.ProductQuery" table="PRODUCT_QUERY">
+        <id name="productQueryId" type="int" column="PRODUCT_QUERY_ID">
+            <generator class="identity" >
+            </generator>
+        </id>
+        <property name="queryTime" type="timestamp" column="QUERY_TIME">
+        </property>
+        <!-- 与用户关联 -->
+        <many-to-one name="sysUser" class="com.cb.model.user.SysUser"  column="USER_ID">
+        </many-to-one>
+         <!-- 与作品关联 -->
+        <many-to-one name="product" class="com.cb.model.product.Product"  column="PRODUCT_ID">
+        </many-to-one>
+    </class>
+</hibernate-mapping>

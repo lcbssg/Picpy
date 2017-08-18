@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="reply" namespace="/reply" extends="common">
+		<action name="replyAction" class="replyAction">
+			<result name="save" type="dispatcher">/pifriend/comment/message.jsp</result>
+			<result name="update" type="dispatcher">/pifriend/comment/message.jsp</result>
+			<result name="delete" type="dispatcher">/pifriend/comment/message.jsp</result>
+			<result name="findById" type="dispatcher">/pifriend/reply/updateReply.jsp</result>
+		</action>
+	</package>
+</struts>

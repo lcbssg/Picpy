@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<!-- 配置事物通知，并配置hibernate事物管理器类 -->
+	<tx:advice id="txAdvice" transaction-manager="hibernateTransactionManager">
+		<tx:attributes>
+			<tx:method name="save*" isolation="DEFAULT" propagation="REQUIRED" read-only="false"/>
+			<tx:method name="update*" isolation="DEFAULT" propagation="REQUIRED" read-only="false"/>
+			<tx:method name="delete*" isolation="DEFAULT" propagation="REQUIRED" read-only="false"/>
+			<tx:method name="register*" isolation="DEFAULT" propagation="REQUIRED" read-only="false"/>
+			<tx:method name="find*"  read-only="true"/>
+			<tx:method name="load*"  read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<!-- 配置切入点 -->
+		<aop:pointcut expression="execution(* com.cb.service.*.*(..))" id="txPointCut"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
+	</aop:config>
+	<!-- 登录模块开始 -->
+	<bean id = "loginService" class = "com.cb.service.login.LoginServiceImpl" scope="singleton">
+		<property name="userDao" ref="userDao"></property>
+		<property name="loginDao" ref="loginDao"></property>
+	</bean>
+	<!-- 登录模块结束 -->
+	<!-- 作品分类模块业务层配置 -->
+	<bean id = "productSortService" class = "com.cb.service.product.ProductSortServiceImpl" scope="prototype">
+		<property name="productSortDao" ref="productSortDao"></property>
+	</bean>
+	<!-- 职位模块开始 -->
+	<bean id = "jobService" class = "com.cb.service.job.JobServiceImpl" scope="singleton">
+		<property name="jobDao" ref="jobDao"></property>
+	</bean>
+	<!-- 职位模块结束 -->
+	<!-- 用户模块开始 -->
+	<bean id = "userService" class = "com.cb.service.user.UserServiceImpl" scope="singleton">
+		<property name="userDao" ref="userDao"></property>
+		<property name="loginService" ref="loginService"></property>
+		<property name="jobDao" ref="jobDao"></property>
+	</bean>
+	<!-- 主页模块开始 -->
+	<bean id = "mainService" class = "com.cb.service.main.MainServiceImpl" scope="singleton">
+		<property name="mainDao" ref="mainDao"></property>
+		<property name="commentDao" ref="commentDao"></property>
+		<property name="productDao" ref="productDao"></property>
+		<property name="productSortDao" ref="productSortDao"></property>
+		<property name="userDao" ref="userDao"></property>
+		<property name="loginService" ref="loginService"></property>
+	</bean>
+	<!-- 主页模块结束 -->
+	<!-- 作品模块开始 -->
+	<bean id = "productService" class = "com.cb.service.product.ProductServiceImp" scope="prototype">
+		<property name="productDao" ref="productDao"></property>
+		<property name="productQueryService" ref="productQueryService"></property>
+		<property name="productSortService" ref="productSortService"></property>
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<bean id = "productQueryService" class = "com.cb.service.product.ProductQueryServiceImpl" scope="prototype">
+		<property name="productQueryDao" ref="productQueryDao"></property>
+	</bean>
+	<!-- 评论模块开始 -->
+	<bean id = "commentService" class = "com.cb.service.comment.CommentServiceImpl" scope="prototype">
+		<property name="commentDao" ref="commentDao"></property>
+	</bean>
+	<!-- 评论模块结束 -->
+	<!-- 回复模块开始 -->
+	<bean id = "replyService" class = "com.cb.service.reply.ReplyServiceImpl" scope="prototype">
+		<property name="replyDao" ref="replyDao"></property>
+	</bean>
+	<!-- 回复模块结束 -->
+</beans>

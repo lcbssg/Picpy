@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="main" namespace="/main" extends="common">
+		<action name="mainAction" class="mainAction" method="findAll">
+			<interceptor-ref name="commonstack">
+				<param name="fileUpload.allowedExtensions">.jpg,.png</param>
+			</interceptor-ref>
+			<result name="save" type="redirectAction">
+				<param name="actionName">mainAction</param>
+				<param name="namespace">/main</param>
+				<param name="method">findAll</param>
+			</result>
+			<result name="findAll" type="dispatcher">/pifriend/main/mainImage.jsp</result>
+			<result name="delete" type="redirectAction">
+				<param name="actionName">mainAction</param>
+				<param name="namespace">/main</param>
+				<param name="method">findAll</param>
+			</result>
+			<result name="input" type="dispatcher">
+				/pifriend/main/mainImage.jsp
+			</result>
+			<result name="findMainContent" type="dispatcher">/pifriend/main/main.jsp</result>
+			<result name="toMain" type="dispatcher">/pifriend/main/index.jsp</result>
+		</action>
+	</package>
+</struts>

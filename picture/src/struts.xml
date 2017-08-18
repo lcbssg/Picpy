@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+<!-- 开启动态方法调用 -->
+<constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
+<!-- 设定创建Action的工厂类为spring，也就是struts的action交给spring管理 -->
+<constant name="struts.objectFactory" value="spring"></constant>
+<!-- 设定struts的UI主题为simple-->
+<constant name="struts.ui.theme" value="simple"></constant>
+<!-- 设定struts的调试模式-->
+<constant name="devMode" value="true"></constant>
+
+<constant name="struts.custom.i18n.resources" value="com.cb.conf.struts.fileUpload"></constant>
+
+
+	<!-- 公用package -->
+	<package name="common" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.cb.interceptor.LoginInterceptor"></interceptor>
+			<interceptor name="busExceptionInterceptor" class="com.cb.interceptor.BusExceptionInterceptor"></interceptor>
+			<interceptor-stack name="commonstack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="loginInterceptor"></interceptor-ref>
+				<interceptor-ref name="busExceptionInterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="commonstack"></default-interceptor-ref>
+		<default-action-ref name="defaultAction"></default-action-ref>
+		<default-class-ref class="com.cb.action.BaseAction"></default-class-ref>
+		<global-results>
+			<result name="busException">/pifriend/main/error.jsp</result>
+			<result name="nolog">/pifriend/login/login.jsp</result>
+			<result name="toMain" type="redirectAction">
+				<param name="nameSpace">/main</param>
+				<param name="actionName">mainAction</param>
+				<param name="method">toMain</param>
+			</result>
+		</global-results>
+		<action name="defaultAction">
+			<result name="success" type="redirectAction">
+				<param name="nameSpace">/main</param>
+				<param name="actionName">mainAction</param>
+				<param name="method">toMain</param>
+			</result>
+		</action>
+	</package>
+	
+	<include file="com/cb/conf/struts/struts-login.xml"></include>
+	<include file="com/cb/conf/struts/struts-main.xml"></include>
+	<include file="com/cb/conf/struts/struts-user.xml"></include>
+	<include file="com/cb/conf/struts/struts-job.xml"></include>
+	<include file="com/cb/conf/struts/struts-comment.xml"></include>
+	<include file="com/cb/conf/struts/struts-reply.xml"></include>
+	<include file="com/cb/conf/struts/struts-product.xml"></include>
+</struts>

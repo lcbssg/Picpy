@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.cb.model.user.SysUser" table="SYS_USER" dynamic-insert="true" dynamic-update="true">
+		<id name="userId" column="USER_ID">
+			<generator class="identity">
+			</generator>
+		</id>
+		<property name="birthday" column="BIRTHDAY" type="date"></property>
+		<property name="email" column="EMAIL" type="string"></property>
+		<property name="imageUrl" column="IMAGE_URL" type="string"></property>
+		<property name="loginName" column="LOGIN_NAME" type="string"></property>
+		<property name="isMale" column="IS_MALE" type="true_false"></property>
+		<property name="password" column="PASSWORD" type="string"></property>
+		<property name="registerTime" column="REGISTER_TIME" type="timestamp"></property>
+		<property name="userName" column="USER_NAME" type="string"></property>
+		<property name="isLock" column="IS_LOCK" type="yes_no"></property>
+		<property name="phoneNum" column="PHONE_NUM" type="string"></property>
+		<!-- 与职位关联配置 -->
+		<many-to-one name="sysJob" class="com.cb.model.job.SysJob" column="JOB_ID">
+		</many-to-one>
+		<!-- 与登录关联配置 -->
+		<set name="sysLogin" table="SYS_LOGIN" inverse="true" fetch="select">
+			<key>
+				<column name="USER_ID"></column>
+			</key>
+			<one-to-many class="com.cb.model.login.SysLogin"/>
+		</set>
+		 <!-- 与作品表关联-->
+        <set name="products" table="PRODUCT" inverse="true" fetch="select">
+            <key>
+                <column name="CREATE_USER" >
+                </column>
+            </key>
+            <one-to-many class="com.cb.model.product.Product" />
+        </set>
+        <!-- 与作品查询表关联-->
+        <set name="productQuerys" table="PRODUCT_QUERY" inverse="true" fetch="select">
+            <key>
+                <column name="USER_ID" >
+                </column>
+            </key>
+            <one-to-many class="com.cb.model.product.ProductQuery" />
+        </set>
+         <!-- 与作品评论表关联-->
+        <set name="porductComments" table="PRODUCT_COMMENT" inverse="true" fetch="select">
+            <key>
+                <column name="USER_ID" >
+                </column>
+            </key>
+            <one-to-many class="com.cb.model.comment.ProductComment" />
+        </set>
+        <!-- 与作品评论回复表关联-->
+        <set name="commentReplys" table="COMMENT_REPLY" inverse="true" fetch="select">
+            <key>
+                <column name="USER_ID" >
+                </column>
+            </key>
+            <one-to-many class="com.cb.model.reply.CommentReply" />
+        </set>
+	</class>
+</hibernate-mapping>
