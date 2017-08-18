@@ -1,0 +1,3 @@
+<c:redirect url="/catalog/" />
+
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cb.lee.domain.repository.account.AddressRepository">
+	<select id="getAddress" parameterType="Account"
+		resultType="Address">
+		SELECT
+		USERNAME,
+		CONSIGNEE,
+		AREA,
+		LOCATION,
+		PHONE,
+		EMAIL,
+		ADDRNICK
+		FROM ADDRESS
+		WHERE
+		USERNAME = #{username}
+	</select>
+
+	<update id="updateAddress" parameterType="Address">
+		UPDATE ADDRESS SET
+		CONSIGNEE=#{consignee},
+		AREA=#{area},
+		LOCATION=#{location},
+		PHONE=#{phone},
+		EMAIL=#{email},
+		ADDRNICK=#{addrnick}
+		WHERE USERNAME = #{username}
+	</update>
+
+	<insert id="insertAddress" parameterType="Address">
+		INSERT INTO ADDRESS
+		(USERNAME,CONSIGNEE,AREA,LOCATION,PHONE,EMAIL,ADDRNICK)
+		VALUES (#{username}, #{consignee},#{area},#{location},#{phone},#{email},#{addrnick})
+	</insert>
+
+</mapper>

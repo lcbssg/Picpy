@@ -1,0 +1,67 @@
+.register {
+	position:relative;
+	float:left;
+	margin-top:4%;
+	left:25%;
+	width: 50%;
+	text-align: center;
+	background-color: rgba(0, 180, 50, 0.3);
+	padding: 30px 0;
+}
+.register h2 {
+	font-size:40px;
+	color:#fff;
+	text-align:center;
+}
+.register input[type="text"] {
+	padding:10px 40px 10px 10px;
+	width:60%;
+	height:45px;
+	border:1px solid white;
+	color:#fff; 
+	text-align:left;
+	outline:none;
+	font-size:18px;
+	background:url(../images/person.png) no-repeat 95% 10px;
+	margin-top:2%;
+	font-weight: 300;
+	font-family: 'Muli', sans-serif;
+	border-radius: 4px;
+}
+
+.register input[type="password"] {
+	padding:10px 40px 10px 10px;
+	width:60%;
+	height:45px;
+	border:1px solid white;
+	color:#fff;
+	text-align:left;
+	outline:none;
+	font-size:18px;
+	background:url(../images/lock.png) no-repeat 95% 10px;
+	margin-top:2%;
+	font-weight: 300;
+	font-family: 'Muli', sans-serif;
+	border-radius: 4px;
+}
+.sign-up {
+	padding:10px;
+	background-color:#4C9A39;
+	width:78%;
+	border:none;
+	cursor:pointer;
+	color:#fff;
+	font-weight: 300;
+	font-family: 'Nunito', sans-serif;
+	font-size:20px;
+	margin-top:3%;
+	text-transform:uppercase;
+	border-radius:4px;
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+}
+.sign-up:hover {
+	background-color:#376D29;
+	color:white;
+}
